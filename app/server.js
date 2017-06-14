@@ -6,10 +6,20 @@ import views from 'koa-views'
 import convert from 'koa-convert'
 import serve from 'koa-static'
 
-import finalHandler from './lib/middlewares/finalHandler'
+import finalHandler from '../lib/middlewares/finalHandler'
 
 import index from './routers'
 import user from './routers/user'
+import mongodb from '../config/mongoose'
+
+const db = mongodb()
+db.connection.on('error', error => {
+  console.log(`数据库连接失败：${error}`)
+})
+
+db.connection.on('open', () => {
+  console.log('-----数据库连接成功-----')
+})
 
 const app = new Koa()
 
