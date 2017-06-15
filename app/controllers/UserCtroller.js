@@ -1,11 +1,10 @@
 import UserModel from '../models/UserModel'
 
 export default {
-  test: () => 'test',
   create: async ctx => {
     ctx.body = await UserModel.create({
-      name: ctx.request.body.name,
-      age: ctx.request.body.age
+      name: ctx.request.query.name,
+      age: ctx.request.query.age
     })
   },
 
