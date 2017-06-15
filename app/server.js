@@ -11,16 +11,20 @@ import finalHandler from '../lib/middlewares/finalHandler'
 
 import index from './routers'
 import user from './routers/user'
-import mongodb from '../config/mongoose'
 
-const db = mongodb()
-db.connection.on('error', error => {
-  console.log(`数据库连接失败：${error}`)
-})
+import config from '../config/config'
+import connectDatabase from '../config/mongoose'
 
-db.connection.on('open', () => {
-  console.log('-----数据库连接成功-----')
-})
+const db = async () => {
+  try {
+    const info = await connectDatabase(config.mongodb)
+    console.log(`---- Connected db to ${info.host}:${info.port}/${info.name} ----`)
+  } catch (error) {
+    console.error(`Unable to connect to database ${error}`)
+  }
+}
+
+db()
 
 const app = new Koa()
 

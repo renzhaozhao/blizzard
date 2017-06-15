@@ -1,11 +1,13 @@
 import mongoose from 'mongoose'
 
-import config from './config'
+const connectDatabase = uri => {
 
-const db = () => {
-  const connectDB = mongoose.connect(config.mongodb)
-
-  return connectDB
+  return new Promise((resolve, reject) => {
+    mongoose.connection
+      .on('error', error => reject(error))
+      .on('open', () => resolve(mongoose.connections[0]))
+    mongoose.connect(uri)
+  })
 }
 
-export default db
+export default connectDatabase
