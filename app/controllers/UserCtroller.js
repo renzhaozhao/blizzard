@@ -1,37 +1,25 @@
 import UserModel from '../models/UserModel'
 
 export default {
-  create: async (ctx, next) => {
-    try {
-      ctx.body = await UserModel.create({
-        name: ctx.request.query.name,
-        age: ctx.request.query.age
-      })
-    } catch (err) {
-      next(err)
-    }
+  create: async ctx => {
+    ctx.body = await UserModel.create({
+      name: ctx.request.query.name,
+      age: ctx.request.query.age
+    })
   },
 
-  list: async (ctx, next) => {
-    try {
-      ctx.body = await UserModel.find()
-    } catch (err) {
-      next(err)
-    }
+  list: async ctx => {
+    ctx.body = await UserModel.find()
   },
 
-  findOne: async (ctx, next) => {
-    try {
-      const user = await UserModel.find({ _id: ctx.params.id })
-      if (user.length) {
-        ctx.body = user[0]
-      } else {
-        ctx.body = {
-          massage: '没有找到'
-        }
+  findOne: async ctx => {
+    const user = await UserModel.findById(ctx.params.id)
+    if (user) {
+      ctx.body = user
+    } else {
+      ctx.body = {
+        massage: '没有找到'
       }
-    } catch (err) {
-      next(err)
     }
   }
 }
