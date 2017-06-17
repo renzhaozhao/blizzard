@@ -4,8 +4,8 @@ import UserController from '../controllers/UserCtroller'
 
 const router = new Router()
 
-router.get('/user', async ctx => UserController.list(ctx))
-router.post('/user', async ctx => UserController.create(ctx))
-router.get('/user/:id', async ctx => UserController.findOne(ctx))
+router.get('/user', UserController.list)
+router.post('/user', UserController.create)
+router.get('/user/:id', UserController.findOne)
 
 export default router
