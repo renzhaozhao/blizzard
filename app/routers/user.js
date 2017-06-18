@@ -7,6 +7,8 @@ const router = new Router()
 router.get('/user', UserController.list)
 router.post('/user', UserController.create)
 router.get('/user/:id', UserController.findOne)
+router.post('/user/:id', UserController.updateOne)
+router.post('/user/delete/:id', UserController.deleteOne)
 
 router.get('/test', ctx => {
   ctx.body = ctx.request.query
