@@ -8,4 +8,11 @@ router.get('/user', UserController.list)
 router.post('/user', UserController.create)
 router.get('/user/:id', UserController.findOne)
 
+router.get('/test', ctx => {
+  ctx.body = ctx.request.query
+})
+router.post('/test', ctx => {
+  ctx.body = ctx.request.body
+})
+
 export default router
